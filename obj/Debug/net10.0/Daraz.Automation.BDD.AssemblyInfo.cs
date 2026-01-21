@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Daraz.Automation.BDD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+049359d6452c326978def80da9a844e5d18551f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Daraz.Automation.BDD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Daraz.Automation.BDD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
