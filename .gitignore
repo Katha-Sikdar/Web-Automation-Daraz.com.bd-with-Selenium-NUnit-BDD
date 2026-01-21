@@ -1,0 +1,51 @@
+## Visual Studio / .NET gitignore
+# Generated for Visual Studio and .NET projects
+
+# Build results
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.pdb
+
+# Visual Studio workspace
+.vs/
+.vscode/
+
+# NuGet
+*.nupkg
+# NuGet Packages folder
+packages/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+*.trx
+
+# Visual Studio profiler
+*.psess
+*.vsp
+
+# Visual Studio Code settings
+.history/
+
+# DotCover
+.dotCover
+
+# MSBuild
+Generated\ Files/
+
+# Rider and ReSharper
+*.dotCover
+_ReSharper*/
+
+# Ignore build outputs from tools
+project.lock.json
+project.fragment.lock.json
