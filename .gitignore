@@ -29,6 +29,9 @@ ScaffoldingReadMe.txt
 TestResults/
 *.trx
 
+# SpecFlow generated code-behind files
+Features/*.feature.cs
+
 # Visual Studio profiler
 *.psess
 *.vsp
