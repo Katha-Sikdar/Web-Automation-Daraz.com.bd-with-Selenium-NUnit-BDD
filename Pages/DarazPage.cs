@@ -24,15 +24,12 @@ namespace Daraz.Automation.BDD.Pages
             _driver.Navigate().GoToUrl(HomeUrl);
         }
 
-<<<<<<< HEAD
-        public bool IsHomePageDisplayed()
-=======
         public bool IsHomePageDisplayed(int timeoutSeconds = 15)
->>>>>>> 0021c10 ( modified on Change language from english to bangla)
         {
             try
             {
-                var searchBox = _wait.Until(d => d.FindElement(DarazLocators.MainSearchBox));
+                var waitLocal = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeoutSeconds));
+                var searchBox = waitLocal.Until(d => d.FindElement(DarazLocators.MainSearchBox));
                 return searchBox.Displayed && _driver.Title.ToLower().Contains("daraz");
             }
             catch { return false; }
@@ -55,7 +52,40 @@ namespace Daraz.Automation.BDD.Pages
             catch (Exception ex)
             {
                 Console.WriteLine($"[Debug] ChangeLanguageToBangla failed: {ex.Message}");
-                return false;
+
+                // Fallback: try to click via JS
+                try
+                {
+                    ((IJavaScriptExecutor)_driver).ExecuteScript("var e=document.querySelector('[data-lang=\\\"bn\\\"]'); if(e) e.click();");
+                    Thread.Sleep(800);
+
+                    // quick verification using localStorage/cookie
+                    try
+                    {
+                        var checkScript = @"
+                            try {
+                                var c = '';
+                                try { c = localStorage.getItem('lzd_lang') || localStorage.getItem('language') || (window.g_config && window.g_config.language) || ''; } catch(e) { }
+                                if (c) return c;
+                                var m = document.cookie.match(/(^|;)\s*lzd_lang=([^;]+)/);
+                                return m ? m[2] : '';
+                            } catch(e) { return ''; }
+                        ";
+
+                        var res = ((IJavaScriptExecutor)_driver).ExecuteScript(checkScript) as string ?? string.Empty;
+                        if (!string.IsNullOrEmpty(res) && res.IndexOf("bn", StringComparison.OrdinalIgnoreCase) >= 0)
+                            return true;
+                    }
+                    catch { }
+                }
+                catch { }
+
+                // Last resort: deterministic setter
+                try
+                {
+                    return SetLanguageDeterministic("Bangla");
+                }
+                catch { return false; }
             }
         }
 
@@ -76,34 +106,53 @@ namespace Daraz.Automation.BDD.Pages
                     }} catch(e){{}}
                 ";
 
-<<<<<<< HEAD
-                ((IJavaScriptExecutor)_driver).ExecuteScript(script);
+                try
+                {
+                    ((IJavaScriptExecutor)_driver).ExecuteScript(script);
+                }
+                catch { /* ignore script execution errors and continue to refresh/fallback */ }
+
                 Thread.Sleep(500);
                 _driver.Navigate().Refresh();
 
-                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-                bool ok = wait.Until(d =>
+                try
                 {
-=======
-                Thread.Sleep(800);
+                    var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                    bool ok = wait.Until(d =>
+                    {
+                        try
+                        {
+                            var checkScript = @"
+                                try {
+                                    var c = '';
+                                    try { c = localStorage.getItem('lzd_lang') || localStorage.getItem('language') || (window.g_config && window.g_config.language) || ''; } catch(e) { }
+                                    if (c) return c;
+                                    var m = document.cookie.match(/(^|;)\s*lzd_lang=([^;]+)/);
+                                    return m ? m[2] : '';
+                                } catch(e) { return ''; }
+                            ";
 
-                return true;
-            }
-            catch
-            {
+                            var res = ((IJavaScriptExecutor)d).ExecuteScript(checkScript) as string ?? string.Empty;
+                            return !string.IsNullOrEmpty(res) && res.IndexOf(code, StringComparison.OrdinalIgnoreCase) >= 0;
+                        }
+                        catch { return false; }
+                    });
+
+                    if (ok) return true;
+                }
+                catch { /* timed out waiting for deterministic change */ }
+
+                // Fallback: try UI click on Bangla option
                 try
                 {
                     var banglaDirect = _wait.Until(d => d.FindElement(DarazLocators.BanglaOption));
                     banglaDirect.Click();
                     Thread.Sleep(800);
-                    return true;
-                }
-                catch
-                {
->>>>>>> 0021c10 ( modified on Change language from english to bangla)
+
+                    // verify again
                     try
                     {
-                        var checkScript = @"
+                        var verify = ((IJavaScriptExecutor)_driver).ExecuteScript(@"
                             try {
                                 var c = '';
                                 try { c = localStorage.getItem('lzd_lang') || localStorage.getItem('language') || (window.g_config && window.g_config.language) || ''; } catch(e) { }
@@ -111,15 +160,17 @@ namespace Daraz.Automation.BDD.Pages
                                 var m = document.cookie.match(/(^|;)\s*lzd_lang=([^;]+)/);
                                 return m ? m[2] : '';
                             } catch(e) { return ''; }
-                        ";
+                        ") as string ?? string.Empty;
 
-                        var res = ((IJavaScriptExecutor)d).ExecuteScript(checkScript) as string ?? string.Empty;
-                        return !string.IsNullOrEmpty(res) && res.IndexOf(code, StringComparison.OrdinalIgnoreCase) >= 0;
+                        return !string.IsNullOrEmpty(verify) && verify.IndexOf(code, StringComparison.OrdinalIgnoreCase) >= 0;
                     }
-                    catch { return false; }
-                });
+                    catch { /* still failed */ }
+                }
+                catch { /* no UI fallback available */ }
 
-                return ok;
+                // final failure
+                try { SaveSnapshot($"SetLanguage_{targetLanguage}"); } catch { }
+                return false;
             }
             catch (Exception ex)
             {
@@ -134,6 +185,16 @@ namespace Daraz.Automation.BDD.Pages
             try
             {
                 var element = _wait.Until(d => d.FindElement(DarazLocators.WelcomeMsg));
+                return element.Text.Trim();
+            }
+            catch { return string.Empty; }
+        }
+
+        public string GetHelpCenterText()
+        {
+            try
+            {
+                var element = _wait.Until(d => d.FindElement(DarazLocators.HelpCenterLink));
                 return element.Text.Trim();
             }
             catch { return string.Empty; }
