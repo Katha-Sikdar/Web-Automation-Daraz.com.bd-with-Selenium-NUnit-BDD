@@ -18,7 +18,6 @@ namespace Daraz.Automation.BDD.Steps
         public void ThenVerifyTheHomePageIsDisplayed()
         {
             var darazPage = new DarazPage(Hook.driver!);
-            // Allow a slightly longer wait for the homepage to stabilize
             bool isDisplayed = darazPage.IsHomePageDisplayed(timeoutSeconds: 20);
             isDisplayed.Should().BeTrue("because the user should be redirected to the Daraz Homepage after navigation.");
         }
@@ -28,14 +27,13 @@ namespace Daraz.Automation.BDD.Steps
             var darazPage = new DarazPage(Hook.driver!);
             bool changed = false;
 
-            // Support both directions; currently we have an implementation for Bangla.
             if (toLanguage?.Equals("Bangla", StringComparison.OrdinalIgnoreCase) == true)
             {
                 try { changed = darazPage.ChangeLanguageToBangla(); } catch { changed = false; }
             }
             else if (toLanguage?.Equals("English", StringComparison.OrdinalIgnoreCase) == true)
             {
-                // try to click the English option
+        
                 try
                 {
                     var english = Hook.driver!.FindElement(DarazLocators.EnglishOption);
@@ -47,7 +45,7 @@ namespace Daraz.Automation.BDD.Steps
             }
             else
             {
-                // unsupported language requested
+                // unsupported language
                 changed = false;
             }
 

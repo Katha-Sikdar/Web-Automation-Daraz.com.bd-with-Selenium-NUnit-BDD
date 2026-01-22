@@ -14,8 +14,6 @@ namespace Daraz.Automation.BDD.Hooks
         [BeforeScenario]
         public void Setup()
         {
-            // Use WebDriverManager to ensure a compatible chromedriver is available.
-            // Keep this simple and let WebDriverManager pick the correct driver.
             try
             {
                 new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());

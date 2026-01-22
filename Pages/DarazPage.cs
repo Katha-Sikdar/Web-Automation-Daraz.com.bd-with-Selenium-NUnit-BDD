@@ -24,10 +24,6 @@ namespace Daraz.Automation.BDD.Pages
             _driver.Navigate().GoToUrl(Url);
         }
 
-        // Verify homepage using multiple heuristics to reduce flakiness:
-        // - title contains 'Daraz' or expected phrase
-        // - current URL contains daraz domain
-        // - presence of main search box or logo element
         public bool IsHomePageDisplayed(int timeoutSeconds = 15)
         {
             try
@@ -81,8 +77,6 @@ namespace Daraz.Automation.BDD.Pages
 
     public bool ChangeLanguageToBangla()
         {
-            // Try multiple strategies to change language to Bangla. Return true when succeeded.
-            // Strategy 1: click the LangToggle then the Bangla option
             try
             {
                 var switcher = _wait.Until(d => d.FindElement(DarazLocators.LangToggle));
@@ -91,14 +85,12 @@ namespace Daraz.Automation.BDD.Pages
                 var bangla = _wait.Until(d => d.FindElement(DarazLocators.BanglaOption));
                 try { bangla.Click(); } catch { /* ignore */ }
 
-                // give UI a moment to update
                 Thread.Sleep(800);
 
                 return true;
             }
             catch
             {
-                // fallback: try clicking the Bangla option directly if visible
                 try
                 {
                     var banglaDirect = _wait.Until(d => d.FindElement(DarazLocators.BanglaOption));
@@ -108,7 +100,6 @@ namespace Daraz.Automation.BDD.Pages
                 }
                 catch
                 {
-                    // last resort: try JS to click any element that contains 'BN'
                     try
                     {
                         var script = "var e = document.querySelector('span:contains(\'BN\')'); if(e) e.click();";
@@ -126,7 +117,6 @@ namespace Daraz.Automation.BDD.Pages
 
         public string GetHelpCenterText()
         {
-            // Get text from a known element to verify language change (safe fallback)
             try
             {
                 var el = _wait.Until(d => d.FindElement(DarazLocators.WelcomeMsg));
