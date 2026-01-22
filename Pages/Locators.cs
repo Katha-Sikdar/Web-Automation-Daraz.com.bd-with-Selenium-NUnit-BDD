@@ -6,6 +6,7 @@
          public static class DarazLocators
          {
 
+//Homepage Locators
             public static By languageSelectDrpdwn=By.XPath("//div[@id='topActionSwitchLang']");
             public static readonly By BanglaOption = By.XPath("//div[@data-lang=\"bn\"]");
             public static readonly By EnglishOption = By.XPath("//div[@data-lang=\"en\"]");

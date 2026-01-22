@@ -5,14 +5,14 @@
         namespace Daraz.Automation.BDD.Steps
         {
             [Binding]
-            public class DarazFlowSteps
+            public class HomePageFlowSteps
             {
-                private readonly DarazPage _page;
+                private readonly HomepagePage _page;
 
-                public DarazFlowSteps()
+                public HomePageFlowSteps()
                 {
-                    
-                    _page = new DarazPage(Hook.driver);
+
+                    _page = new HomepagePage(Hook.driver);
                 }
 
                 [Given(@"I navigate to Daraz website")]

@@ -7,12 +7,12 @@
 
                 namespace Daraz.Automation.BDD.Pages
                 {
-                    public class DarazPage
+                    public class HomepagePage
                     {
                         private readonly IWebDriver _driver;
                         private readonly WebDriverWait _wait;
 
-                        public DarazPage(IWebDriver driver)
+                        public HomepagePage(IWebDriver driver)
                         {
                             _driver = driver;
                             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
