@@ -7,7 +7,7 @@ namespace Daraz.Automation.BDD.Utils
     {
 public static string GetTestData(string key)
 {
-    // Using the path you confirmed
+   
     string filePath = "/Users/katha/Desktop/Automation Assessment/Web-Automation-Daraz.com.bd-with-Selenium-NUnit-BDD/Data/testData.json";
     
     string json = File.ReadAllText(filePath);

@@ -18,7 +18,7 @@
                         }
 
                 [Then(@"Click on the ""(.*)"" button and verify that the SignUp window is opened\.?")]
-                        public void ThenClickSignUpAndVerify(string buttonName)
+                        public void ClickSignUpAndVerify(string buttonName)
                         {
                             _registrationPage.ClickSignUp();
                             Thread.Sleep(2000);
@@ -27,7 +27,7 @@
                         }
 
                 [Then(@"Fill in the registration form with valid Phone Number")]
-                public void ThenFillInTheRegistrationForm()
+                public void FillInTheRegistrationForm()
                 {
 
                     string mobileData = Utils.JsonReader.GetTestData("phoneNumber");
@@ -35,14 +35,14 @@
                 }
 
                 [Then(@"Check the terms and conditions checkbox")]
-                public void AndCheckTheTermsAndConditionsCheckbox()
+                public void CheckTermsAndConditionsCheckbox()
                 {
                     _registrationPage.CheckTermsAndConditions();
                     Thread.Sleep(1000);
                 }
 
                 [Then(@"Submit the registration form")]
-            public void ThenSubmitTheRegistrationForm()
+            public void SubmitRegistrationForm()
             {       
                 _registrationPage.ClickSubmit();
                 Thread.Sleep(3000);

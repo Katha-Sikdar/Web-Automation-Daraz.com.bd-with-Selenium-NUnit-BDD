@@ -36,7 +36,7 @@ namespace Daraz.Automation.BDD.Pages
             phoneInput.Clear();
             phoneInput.SendKeys(mobile);
             
-            // Ensures the value is actually present before moving forward
+
             _wait.Until(d => phoneInput.GetAttribute("value").Length > 0);
         }
 
@@ -54,7 +54,6 @@ namespace Daraz.Automation.BDD.Pages
             var submitBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.submitButton));
             submitBtn.Click();
             
-            // Wait for the button to disappear or the page to transition
             _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(DarazLocators.submitButton));
         }
 
@@ -62,21 +61,20 @@ namespace Daraz.Automation.BDD.Pages
         {
             try
             {
-                // Check if the captcha slider is present
+                
                 var slider = _wait.Until(ExpectedConditions.ElementIsVisible(By.Id("nc_1_n1z")));
                 
                 if (slider.Displayed)
                 {
                     Console.WriteLine("CAPTCHA Detected! Please slide the bar manually.");
                     
-                    // Wait up to 30 seconds for manual intervention
                     var longWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
                     longWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("nc_1_n1z")));
                 }
             }
             catch (WebDriverTimeoutException)
             {
-                Console.WriteLine("No slider detected, continuing test...");
+                Console.WriteLine("No slider detected, continuing test");
             }
         }
     }
