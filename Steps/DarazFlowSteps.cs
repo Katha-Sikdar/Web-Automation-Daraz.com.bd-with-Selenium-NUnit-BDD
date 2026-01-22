@@ -30,5 +30,13 @@
                     _page.OpenLanguageMenu();
                     _page.SelectLanguageFromPopup(langCode);
                 }
+
+                 [Then(@"Change the site language back from ""Bangla"" to ""English"" and verify that the language is updated.")]
+                public void ThenChangeLanguageBack()
+                {
+                    _page.OpenLanguageMenu();
+                    _page.SelectLanguageFromPopup("en");
+                }
+
             }
         }
