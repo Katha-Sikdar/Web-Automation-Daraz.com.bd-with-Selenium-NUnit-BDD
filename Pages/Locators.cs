@@ -12,6 +12,9 @@
             public static readonly By EnglishOption = By.XPath("//div[@data-lang=\"en\"]");
             public static readonly By LangToggle = By.XPath("//div[@class=\"top-links-item white\"][3]");
             public static readonly By MainSearchBox = By.Id("q");
+
+            //SignUp Part Locators
+            public static By SignUpButton = By.XPath("//a[text()='Sign Up']");
          
          }
       }

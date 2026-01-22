@@ -1,4 +1,4 @@
-    Feature: Daraz Full Purchase Workflow
+    Feature: Daraz HomePage Workflow
 
       @EndToEnd
       Scenario: Complete purchase flow from language change to checkout
