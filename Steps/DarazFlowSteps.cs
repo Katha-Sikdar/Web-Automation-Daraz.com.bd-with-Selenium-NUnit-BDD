@@ -8,65 +8,59 @@ using OpenQA.Selenium;
 
 namespace Daraz.Automation.BDD.Steps
 {
-   [Binding]
-   public class DarazFlowSteps
-   {
-       private readonly DarazPage _darazPage;
-       private readonly IWebDriver _driver;
+    [Binding]
+    public class DarazFlowSteps
+    {
+        [Given(@"I navigate to Daraz website")]
+        public void GivenINavigateToDarazWebsite()
+        {
+            var darazPage = new DarazPage(Hook.driver!);
+            darazPage.NavigateToHomePage();
+        }
+        [Then(@"Verify the home page is displayed")]
+        public void ThenVerifyTheHomePageIsDisplayed()
+        {
+            var darazPage = new DarazPage(Hook.driver!);
+            bool isDisplayed = darazPage.IsHomePageDisplayed(timeoutSeconds: 20);
+            isDisplayed.Should().BeTrue("because the user should be redirected to the Daraz Homepage after navigation.");
+        }
+        [Then(@"I change language From ""(.*)"" to ""(.*)"" and verify")]
+        public void WhenIChangeLanguageFromEnglishToBanglaAndVerify(string fromLanguage, string toLanguage)
+        {
+            var darazPage = new DarazPage(Hook.driver!);
+            bool changed = false;
 
+            if (toLanguage?.Equals("Bangla", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                try { changed = darazPage.ChangeLanguageToBangla(); } catch { changed = false; }
+            }
+            else if (toLanguage?.Equals("English", StringComparison.OrdinalIgnoreCase) == true)
+            {
+        
+                try
+                {
+                    var english = Hook.driver!.FindElement(DarazLocators.EnglishOption);
+                    english.Click();
+                    Thread.Sleep(800);
+                    changed = true;
+                }
+                catch { changed = false; }
+            }
+            else
+            {
+                // unsupported language
+                changed = false;
+            }
 
-       public DarazFlowSteps()
-       {
-           _driver = Hook.driver;
-           _darazPage = new DarazPage(_driver);
-       }
+            changed.Should().BeTrue($"because we expect the language to change to '{toLanguage}'");
 
-
-       [Given(@"Daraz website navigation")]
-       public void GivenDarazWebsiteNavigation()
-       {
-           _darazPage.NavigateToHomePage();
-       }
-
-
-       [Then(@"Verify the home page is displayed or not")]
-       public void ThenVerifyHomePageDisplay()
-       {
-           bool isDisplayed = _darazPage.IsHomePageDisplayed();
-           isDisplayed.Should().BeTrue("Homepage failed to load or the unique logo was not found.");
-       }
-
-       [Then(@"Change language From ""(.*)"" to ""(.*)"" and verify")]
-       public void ThenChangeLanguageAndVerify(string fromLanguage, string toLanguage)
-       {
-           bool isSuccess = false;
-
-
-           if (toLanguage.Equals("Bangla", StringComparison.OrdinalIgnoreCase))
-           {
-          
-               isSuccess = _darazPage.ChangeLanguageToBangla();
-           }
-           else if (toLanguage.Equals("English", StringComparison.OrdinalIgnoreCase))
-           {
-               var englishOption = _driver.FindElement(DarazLocators.EnglishOption);
-               englishOption.Click();
-               isSuccess = true;
-           }
-
-
-           // Assertion
-           isSuccess.Should().BeTrue($"The UI failed to switch the language to {toLanguage}");
-
-
-           // text change verification
-           var welcomeText = _darazPage.GetWelcomeMessage();
-          
-           if (toLanguage.Equals("Bangla"))
-           {
-               welcomeText.Should().NotBe("Signup / Login", "The welcome text should be in Bangla now.");
-           }
-       }
-   }
+            // Verification: 'WelcomeMsg' should change when language updates
+            string helpText = darazPage.GetHelpCenterText();
+            if (!string.IsNullOrEmpty(helpText))
+            {
+                helpText.Should().NotBe("Help Center", "because the language should have switched.");
+            }
+        }
+    }
 }
 

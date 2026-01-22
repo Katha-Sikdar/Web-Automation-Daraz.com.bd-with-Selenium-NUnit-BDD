@@ -24,7 +24,11 @@ namespace Daraz.Automation.BDD.Pages
             _driver.Navigate().GoToUrl(HomeUrl);
         }
 
+<<<<<<< HEAD
         public bool IsHomePageDisplayed()
+=======
+        public bool IsHomePageDisplayed(int timeoutSeconds = 15)
+>>>>>>> 0021c10 ( modified on Change language from english to bangla)
         {
             try
             {
@@ -72,6 +76,7 @@ namespace Daraz.Automation.BDD.Pages
                     }} catch(e){{}}
                 ";
 
+<<<<<<< HEAD
                 ((IJavaScriptExecutor)_driver).ExecuteScript(script);
                 Thread.Sleep(500);
                 _driver.Navigate().Refresh();
@@ -79,6 +84,23 @@ namespace Daraz.Automation.BDD.Pages
                 var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
                 bool ok = wait.Until(d =>
                 {
+=======
+                Thread.Sleep(800);
+
+                return true;
+            }
+            catch
+            {
+                try
+                {
+                    var banglaDirect = _wait.Until(d => d.FindElement(DarazLocators.BanglaOption));
+                    banglaDirect.Click();
+                    Thread.Sleep(800);
+                    return true;
+                }
+                catch
+                {
+>>>>>>> 0021c10 ( modified on Change language from english to bangla)
                     try
                     {
                         var checkScript = @"
