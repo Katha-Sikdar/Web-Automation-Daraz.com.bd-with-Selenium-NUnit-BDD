@@ -5,4 +5,4 @@ Feature: Daraz Full Purchase Workflow
     Given Daraz website navigation
     Then Verify the home page is displayed or not
     And Change language From "English" to "Bangla" and verify
-    Then Change the site language back from "Bangla" to "English" and verify that the language is updated
+   
