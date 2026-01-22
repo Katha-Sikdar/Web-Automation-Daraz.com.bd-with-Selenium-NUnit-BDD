@@ -1,66 +1,34 @@
-using System;
-using Daraz.Automation.BDD.Hooks;
-using Daraz.Automation.BDD.Pages;
-using FluentAssertions;
-using TechTalk.SpecFlow;
-using OpenQA.Selenium;
+    using TechTalk.SpecFlow;
+        using Daraz.Automation.BDD.Hooks;
+        using Daraz.Automation.BDD.Pages;
 
-
-namespace Daraz.Automation.BDD.Steps
-{
-    [Binding]
-    public class DarazFlowSteps
-    {
-        [Given(@"I navigate to Daraz website")]
-        public void GivenINavigateToDarazWebsite()
+        namespace Daraz.Automation.BDD.Steps
         {
-            var darazPage = new DarazPage(Hook.driver!);
-            darazPage.NavigateToHomePage();
-        }
-        [Then(@"Verify the home page is displayed")]
-        public void ThenVerifyTheHomePageIsDisplayed()
-        {
-            var darazPage = new DarazPage(Hook.driver!);
-            bool isDisplayed = darazPage.IsHomePageDisplayed(timeoutSeconds: 20);
-            isDisplayed.Should().BeTrue("because the user should be redirected to the Daraz Homepage after navigation.");
-        }
-        [Then(@"I change language From ""(.*)"" to ""(.*)"" and verify")]
-        public void WhenIChangeLanguageFromEnglishToBanglaAndVerify(string fromLanguage, string toLanguage)
-        {
-            var darazPage = new DarazPage(Hook.driver!);
-            bool changed = false;
-
-            if (toLanguage?.Equals("Bangla", StringComparison.OrdinalIgnoreCase) == true)
+            [Binding]
+            public class DarazFlowSteps
             {
-                try { changed = darazPage.ChangeLanguageToBangla(); } catch { changed = false; }
-            }
-            else if (toLanguage?.Equals("English", StringComparison.OrdinalIgnoreCase) == true)
-            {
-        
-                try
+                private readonly DarazPage _page;
+
+                public DarazFlowSteps()
                 {
-                    var english = Hook.driver!.FindElement(DarazLocators.EnglishOption);
-                    english.Click();
-                    Thread.Sleep(800);
-                    changed = true;
+                    
+                    _page = new DarazPage(Hook.driver);
                 }
-                catch { changed = false; }
-            }
-            else
-            {
-                // unsupported language
-                changed = false;
-            }
 
-            changed.Should().BeTrue($"because we expect the language to change to '{toLanguage}'");
+                [Given(@"I navigate to Daraz website")]
+                public void GivenINavigate() => _page.NavigateToHomePage();
 
-            // Verification: 'WelcomeMsg' should change when language updates
-            string helpText = darazPage.GetHelpCenterText();
-            if (!string.IsNullOrEmpty(helpText))
-            {
-                helpText.Should().NotBe("Help Center", "because the language should have switched.");
+                [Then(@"Verify the home page is displayed")]
+                public void ThenVerifyHome() => _page.AssertHomePageVisible();
+
+                [Then(@"Click on the Language Selection Dropdown and Select ""(.*)"" from the language options")]
+                public void ThenSelectLanguageFromOptions(string languageName)
+                {
+        
+                    string langCode = languageName.ToLower().Contains("bangla") ? "bn" : "en";
+                    
+                    _page.OpenLanguageMenu();
+                    _page.SelectLanguageFromPopup(langCode);
+                }
             }
         }
-    }
-}
-

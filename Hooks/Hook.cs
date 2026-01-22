@@ -10,9 +10,9 @@ namespace Daraz.Automation.BDD.Hooks
     public class Hook
     {
     public static IWebDriver? driver;
-
-        [BeforeScenario]
-        public void Setup()
+       
+        [BeforeTestRun]
+        public static void BeforeTestRun()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--no-sandbox");
@@ -24,19 +24,19 @@ namespace Daraz.Automation.BDD.Hooks
             }
             catch (Exception ex)
             {
-                // Log but continue — driver creation may still succeed if chromedriver is present
                 Console.WriteLine("[Hook] WebDriverManager.SetUpDriver warning: " + ex.Message);
             }
 
-            // Increase the command timeout to 2 minutes to give Daraz time to load on heavy networks
             driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(2));
-
             driver.Manage().Window.Maximize();
-            // Also set a page load timeout
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(60);
         }
 
-        [AfterScenario]
-        public void TearDown() => driver?.Quit();
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            driver?.Quit();
+            driver = null;
+        }
     }
 }
