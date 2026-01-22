@@ -12,22 +12,21 @@ namespace Daraz.Automation.BDD.Hooks
     public static IWebDriver? driver;
 
         [BeforeScenario]
-        public void Setup()
-        {
-            try
-            {
-                new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[Hook] WebDriverManager.SetUpDriver failed: " + ex.Message);
-            }
+public void Setup()
+{
+    new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
+    
+    ChromeOptions options = new ChromeOptions();
+    options.AddArgument("--no-sandbox");
+    options.AddArgument("--disable-dev-shm-usage");
 
-            driver = new ChromeDriver();
-            Console.WriteLine("[Hook] ChromeDriver created. Session: " + (driver as OpenQA.Selenium.Remote.RemoteWebDriver)?.SessionId);
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-        }
+    // Increase the command timeout to 2 minutes to give Daraz time to load on heavy networks
+    driver = new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromMinutes(2));
+    
+    driver.Manage().Window.Maximize();
+    // Also set a page load timeout
+    driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(60);
+}
 
         [AfterScenario]
         public void TearDown() => driver?.Quit();
