@@ -2,7 +2,14 @@
   "RegistrationData": {
     "phoneNumber": "01792855694",
     "email": "ferdouskatha@gmail.com",
-    "password": "@Kat121@"
+    "password": "@Kat121@",
+
+    "FullName": "Katha Sikdar",
+    "PhoneNumber": "01792855694",
+    "Building": "ABCDEF",
+    "Colony": "Dhaka City",
+    "Address": "House 12, Road 5, Block A"
+    }
   }
-}
+
 

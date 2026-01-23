@@ -9,4 +9,8 @@
         Then click on the Cart icon and verify that the Cart page is opened
         Then Click on the Category Dropdown "First" and select a product and add to Cart
         And Click on the Category Dropdown "Second" and select a product and add to Cart
-    
+        Then Proceed to Checkout from the Cart page
+        Then Fill in the Delivery Information form with valid details and Proceed To Pay
+        # And Fill in the Shipping Information form with valid details
+        # Then Select a Payment Method and complete the purchase
+        # Then Verify that the order confirmation page is displayed with order details

@@ -1,6 +1,6 @@
 
 using System;
-using System.Threading; // Added for small human-like pauses
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;

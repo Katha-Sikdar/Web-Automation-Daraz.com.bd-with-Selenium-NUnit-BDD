@@ -4,6 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using NUnit.Framework;
 using OpenQA.Selenium.Interactions;
+using WebDriverManager.Services.Impl;
 
 namespace Daraz.Automation.BDD.Pages
 {
@@ -76,7 +77,7 @@ namespace Daraz.Automation.BDD.Pages
         dialogCloseBtn.Click();
     }
 
-    CompletePurchaseFlow();
+   // CompletePurchaseFlow();
 }
 
 private void CompletePurchaseFlow()
@@ -87,6 +88,74 @@ private void CompletePurchaseFlow()
     var success = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.itemAddedSuccessfully));
     Assert.That(success.Displayed, Is.True);
 }
+    
+public void ProceedToCheckout()
+{
+    var cartBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.cartIcon));
+    cartBtn.Click();
+    var selectAllchkBox = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.selectAllchkBox));
+    selectAllchkBox.Click();
 
+    var proceedToCheckoutButton = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.proceedToCheckoutButton));
+    proceedToCheckoutButton.Click();
+}  
+
+public void FillDeliveryInformationForm(string FullName,string PhoneNumber, string Building, string Colony, string Address)
+{
+    var fullNameInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.fullNameInput));
+    fullNameInput.Clear();
+    fullNameInput.SendKeys(FullName);
+    
+    var phoneNumberInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.phoneNumberInput));
+    phoneNumberInput.Clear();
+    phoneNumberInput.SendKeys(PhoneNumber);
+
+    var buildingInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.buildingInput));
+    buildingInput.Clear();
+    buildingInput.SendKeys(Building);
+
+    var colonyInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.colonyInput));
+    colonyInput.Clear();
+    colonyInput.SendKeys(Colony);
+
+    var addressInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.addressInput));
+    addressInput.Clear();
+    addressInput.SendKeys(Address);
+
+    var regionDrpDwnBtn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.regionInput));
+    regionDrpDwnBtn.Click();
+    Thread.Sleep(2000);
+    ArrowDown();
+
+    var cityDrpDwnBtn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.cityInput));
+    cityDrpDwnBtn.Click();
+    ArrowDown();
+
+    var areaDrpDwn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.areaInput));
+    areaDrpDwn.Click();
+    ArrowDown();
+
+    var homeButton = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.homeButton));
+    homeButton.Click();
+
+    var saveButton = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.saveButton));
+    saveButton.Click();
+
+    var proceedToPayButton = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.proceedToPayButton));
+    proceedToPayButton.Click();
+
+    }
+
+    public void ArrowDown()
+        {
+            new Actions(_driver)
+        .Pause(TimeSpan.FromMilliseconds(500)) // Wait for animation
+        .SendKeys(Keys.ArrowDown)
+        .Pause(TimeSpan.FromMilliseconds(200))
+        .SendKeys(Keys.Enter)
+        .Perform();
+        }
+
+    
     }
 }

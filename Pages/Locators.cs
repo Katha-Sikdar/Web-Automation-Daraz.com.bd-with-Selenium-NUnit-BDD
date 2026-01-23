@@ -44,6 +44,21 @@
                public static readonly By dialogBtnClose = By.XPath("//a[contains(@class, 'next-dialog-close')]");
                public static readonly By overlayBackdrop = By.ClassName("next-overlay-backdrop");
 
+               //checkout locators
+               public static readonly By selectAllchkBox = By.XPath("//div[@id='listHeader_H']//label[contains(@class,'list-header-checkbox')]");
+               public static readonly By proceedToCheckoutButton = By.XPath("//button[contains(@class, 'automation-checkout-order-total-button-button')]");
 
+               // Delivery Information Form
+               public static readonly By fullNameInput = By.XPath("//input[@placeholder='Enter your first and last name']");
+               public static readonly By regionInput = By.XPath("//span[text()='Please choose your region']");
+               public static readonly By phoneNumberInput = By.XPath("//input[@placeholder='Please enter your phone number']");
+               public static readonly By cityInput = By.XPath("//span[text()='Please choose your city']");
+               public static readonly By buildingInput = By.XPath("(//input[@placeholder='Please enter'])[1]");
+               public static readonly By colonyInput = By.XPath("(//input[@placeholder='Please enter'])[2]");
+               public static readonly By areaInput = By.XPath("//span[contains(@class, 'next-select-placeholder') and text()='Please choose your area']/..");
+               public static readonly By addressInput = By.XPath("//div[contains(@class, 'mod-input-detailAddress')]//input");
+               public static readonly By homeButton = By.XPath("//span[text()='HOME']");
+               public static readonly By saveButton = By.XPath("//button[text()='SAVE']");
+               public static readonly By proceedToPayButton = By.XPath("//div[text()='Proceed to Pay']");
             }
          }
