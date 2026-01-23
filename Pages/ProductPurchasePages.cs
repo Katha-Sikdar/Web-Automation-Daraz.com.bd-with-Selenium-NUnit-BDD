@@ -76,8 +76,6 @@ namespace Daraz.Automation.BDD.Pages
         var dialogCloseBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.dialogBtnClose));
         dialogCloseBtn.Click();
     }
-
-   // CompletePurchaseFlow();
 }
 
 private void CompletePurchaseFlow()
@@ -149,7 +147,7 @@ public void FillDeliveryInformationForm(string FullName,string PhoneNumber, stri
     public void ArrowDown()
         {
             new Actions(_driver)
-        .Pause(TimeSpan.FromMilliseconds(500)) // Wait for animation
+        .Pause(TimeSpan.FromMilliseconds(500))
         .SendKeys(Keys.ArrowDown)
         .Pause(TimeSpan.FromMilliseconds(200))
         .SendKeys(Keys.Enter)

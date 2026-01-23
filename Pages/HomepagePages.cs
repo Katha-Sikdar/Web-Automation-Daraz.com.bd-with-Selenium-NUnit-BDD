@@ -1,56 +1,56 @@
-                using System;
-                using OpenQA.Selenium;
-                using OpenQA.Selenium.Support.UI;
-                using OpenQA.Selenium.Interactions;
-                using SeleniumExtras.WaitHelpers;
-                using NUnit.Framework;
+                    using System;
+                    using OpenQA.Selenium;
+                    using OpenQA.Selenium.Support.UI;
+                    using OpenQA.Selenium.Interactions;
+                    using SeleniumExtras.WaitHelpers;
+                    using NUnit.Framework;
 
-                namespace Daraz.Automation.BDD.Pages
-                {
-                    public class HomepagePage
+                    namespace Daraz.Automation.BDD.Pages
                     {
-                        private readonly IWebDriver _driver;
-                        private readonly WebDriverWait _wait;
-
-                        public HomepagePage(IWebDriver driver)
+                        public class HomepagePage
                         {
-                            _driver = driver;
-                            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
-                        }
+                            private readonly IWebDriver _driver;
+                            private readonly WebDriverWait _wait;
 
-                        public void NavigateToHomePage() => _driver.Navigate().GoToUrl("https://www.daraz.com.bd/");
+                            public HomepagePage(IWebDriver driver)
+                            {
+                                _driver = driver;
+                                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
+                            }
 
-                        public void AssertHomePageVisible()
-                        {
-                            var search = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.MainSearchBox));
-                            Assert.That(search.Displayed, Is.True, "Homepage failed to load.");
-                        }
+                            public void NavigateToHomePage() => _driver.Navigate().GoToUrl("https://www.daraz.com.bd/");
 
-                        public void OpenLanguageMenu()
-                        {
-                            var menu = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.languageSelectDrpdwn));
-                            new Actions(_driver).MoveToElement(menu).Perform();
-                            menu.Click(); 
-                        }
+                            public void AssertHomePageVisible()
+                            {
+                                var search = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.MainSearchBox));
+                                Assert.That(search.Displayed, Is.True, "Homepage failed to load.");
+                            }
 
+                            public void OpenLanguageMenu()
+                            {
+                                var menu = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.languageSelectDrpdwn));
+                                new Actions(_driver).MoveToElement(menu).Perform();
+                                menu.Click(); 
+                            }
+
+                    
+
+                            public void SelectLanguageFromPopup(string langCode)
+                {
                 
+                    By targetButton = langCode == "bn" ? DarazLocators.BanglaOption : DarazLocators.EnglishOption;
+                    var languageBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(targetButton));
+                    languageBtn.Click();
 
-                        public void SelectLanguageFromPopup(string langCode)
-            {
-            
-                By targetButton = langCode == "bn" ? DarazLocators.BanglaOption : DarazLocators.EnglishOption;
-                var languageBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(targetButton));
-                languageBtn.Click();
+                    _wait.Until(ExpectedConditions.StalenessOf(languageBtn));
 
-                _wait.Until(ExpectedConditions.StalenessOf(languageBtn));
+                    string expectedPlaceholder = langCode == "bn" ? "দারাজ এ অনুসন্ধান" : "Search in Daraz";
 
-                string expectedPlaceholder = langCode == "bn" ? "দারাজ এ অনুসন্ধান" : "Search in Daraz";
+                    var searchBox = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.MainSearchBox));
+                    string actualPlaceholder = searchBox.GetAttribute("placeholder");
 
-                var searchBox = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.MainSearchBox));
-                string actualPlaceholder = searchBox.GetAttribute("placeholder");
-
-                Assert.That(actualPlaceholder, Is.EqualTo(expectedPlaceholder), 
-                    $"The search bar placeholder did not update correctly for {langCode}.");
-            }
-                    }
+                    Assert.That(actualPlaceholder, Is.EqualTo(expectedPlaceholder), 
+                        $"The search bar placeholder did not update correctly for {langCode}.");
                 }
+                        }
+                    }
