@@ -6,7 +6,7 @@
             public static class DarazLocators
             {
 
-   //Homepage Locators
+               //Homepage Locators
                public static By languageSelectDrpdwn=By.XPath("//div[@id='topActionSwitchLang']");
                public static readonly By BanglaOption = By.XPath("//div[@data-lang=\"bn\"]");
                public static readonly By EnglishOption = By.XPath("//div[@data-lang=\"en\"]");
@@ -27,7 +27,6 @@
                public static By inputPassword = By.XPath("//input[@placeholder='Please enter your password']");
                public static By btnSubmit = By.XPath("//button[@type='button']");
                public static By profileId = By.XPath("//span[@id='myAccountTrigger']");
-               //public static readonly By profileXPath = By.XPath($"//*[contains(text(), '{expectedName}')]"); 
                public static readonly By loginWindowAssertion = By.XPath("//button[@type='button' and text()='LOGIN']");
 
                //product purchase locators
@@ -37,14 +36,14 @@
                public static readonly By subCategoryOne = By.XPath("//span[text()='Kitchen Appliances']");
                public static readonly By firstItem = By.XPath("//span[text()='Singer Deep Freezer']");
                public static readonly By firstItemAddToCart = By.XPath("//a[@title='Singer Chest Freezer']");
-              // public static readonly By selectFirstItem = By.XPath("(//div[@data-qa-locator='general-products']//div[@data-qa-locator='product-item'])[1]");
-               public static readonly By categoryTwo = By.XPath("(//a[contains(@class,'card-categories-li')])[2]");
+               public static readonly By categoryTwo = By.XPath("//span[text()='Electronics Device']");
+               public static readonly By subCategoryTwo = By.XPath("//span[text()='Desktops']");
+               public static readonly By secondItem = By.XPath("//div[@data-item-id='317880542']");
                public static readonly By btnAddtoCart = By.XPath("//button//span[text()='Add to Cart']");
                public static readonly By itemAddedSuccessfully = By.XPath("//span[text()='Added to cart successfully!']");
-      //   IWebElement CartMessage => driver.FindElement(By.XPath("//span[@class='cart-message-text']"));
-      //   IWebElement btnCross => driver.FindElement(By.XPath("//i[@class='next-icon next-icon-close next-icon-small']"));
+               public static readonly By dialogBtnClose = By.XPath("//a[contains(@class, 'next-dialog-close')]");
+               public static readonly By overlayBackdrop = By.ClassName("next-overlay-backdrop");
 
 
-                     }
-                             
-    }
+            }
+         }

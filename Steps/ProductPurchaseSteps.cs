@@ -24,10 +24,10 @@ namespace Daraz.Automation.BDD.Steps
 
         }
 
-        [Then(@"Click on the Category Dropdown and select a product category and added item to the Cart")]
-        public void ClickCategoryDropdownAndSelectCategory()
-        {
-            _productPurchasePage.ClickCategoryDropdownAndSelectCategory();
-        }
+    [Then(@"Click on the Category Dropdown ""(.*)"" and select a product and add to Cart")]
+    public void ClickCategoryDropdownAndSelect(string categoryType)
+    {
+        _productPurchasePage.ClickCategoryDropdownAndSelectCategory(categoryType);
     }
 }
+    }
