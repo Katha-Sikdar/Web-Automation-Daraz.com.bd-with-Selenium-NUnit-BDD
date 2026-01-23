@@ -7,4 +7,4 @@
         And Fill in the Login form with valid Email Address and Password
         Then Submit the Login form and verify successful login by checking 
         Then click on the Cart icon and verify that the Cart page is opened
-        Then Click on the Category Dropdown and select a product category
+        Then Click on the Category Dropdown and select a product category and added item to the Cart

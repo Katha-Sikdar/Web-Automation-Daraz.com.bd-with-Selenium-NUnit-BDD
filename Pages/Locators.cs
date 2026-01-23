@@ -40,6 +40,7 @@
               // public static readonly By selectFirstItem = By.XPath("(//div[@data-qa-locator='general-products']//div[@data-qa-locator='product-item'])[1]");
                public static readonly By categoryTwo = By.XPath("(//a[contains(@class,'card-categories-li')])[2]");
                public static readonly By btnAddtoCart = By.XPath("//button//span[text()='Add to Cart']");
+               public static readonly By itemAddedSuccessfully = By.XPath("//span[text()='Added to cart successfully!']");
       //   IWebElement CartMessage => driver.FindElement(By.XPath("//span[@class='cart-message-text']"));
       //   IWebElement btnCross => driver.FindElement(By.XPath("//i[@class='next-icon next-icon-close next-icon-small']"));
 

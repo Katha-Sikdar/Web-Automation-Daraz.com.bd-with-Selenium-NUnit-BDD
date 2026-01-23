@@ -100,6 +100,9 @@ namespace Daraz.Automation.BDD.Pages
             var addItemToCart = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.btnAddtoCart));
             addItemToCart.Click();
 
+            var itemAddedSuccessfully = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.itemAddedSuccessfully));
+            Assert.That(itemAddedSuccessfully.Displayed, Is.True, "Item was not added to cart successfully.");
+
             //var addToCartBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.btnAddtoCart));
             // addToCartBtn.Click();
         }
