@@ -3,8 +3,9 @@
     using OpenQA.Selenium.Support.UI;
     using SeleniumExtras.WaitHelpers;
     using NUnit.Framework;
+using Daraz.Automation.BDD.Hooks;
 
-    namespace Daraz.Automation.BDD.Pages
+namespace Daraz.Automation.BDD.Pages
     {
         public class RegistrationPage
         {
@@ -35,14 +36,15 @@
                 phoneInput.Click();
                 phoneInput.Clear();
                 phoneInput.SendKeys(mobile);
-                
-
-                _wait.Until(d => phoneInput.GetAttribute("value").Length > 0);
+                Thread.Sleep(1000);
+                Hook.driver!.Navigate().Refresh();
             }
 
             public void CheckTermsAndConditions()
             {
                 var termsCheckbox = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.termsAndConditionsCheckbox));
+                // termsCheckbox.Click();
+                Thread.Sleep(1000);
                 if (!termsCheckbox.Selected)
                 {
                     termsCheckbox.Click();

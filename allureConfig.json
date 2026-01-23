@@ -1,0 +1,13 @@
+{
+  "allure": {
+    "directory": "allure-results",
+    "links": [
+      "https://example.com/{link}"
+    ]
+  },
+  "specflow": {
+    "stepArguments": {
+      "convertToParameters": true
+    }
+  }
+}

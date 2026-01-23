@@ -4,5 +4,8 @@
   },
   "bindingCulture": {
     "name": "en"
-  }
+  },
+
+  "stepAssemblies": [ { "assembly": "Allure.SpecFlowPlugin" } ]
 }
+  

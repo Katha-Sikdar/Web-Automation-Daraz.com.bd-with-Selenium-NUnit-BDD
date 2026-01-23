@@ -18,7 +18,8 @@
                   public static By modalCheckBox = By.XPath("//label[contains(@class,'iweb-checkbox-lazada')]");
 
                   public static By mobileInput = By.XPath("//input[@placeholder='Please enter your phone number']");
-                  public static By termsAndConditionsCheckbox = By.XPath("//label[contains(@class,'iweb-checkbox-lazada')]");
+                  //public static By termsAndConditionsCheckbox = By.XPath("//label[contains(@class, 'iweb-checkbox-checked') and contains(@class, 'index_module_acceptCheckbox')]");
+                  public static By termsAndConditionsCheckbox = By.XPath("/html/body/div[7]/div/div/div/div/div/div/div/div[2]/div/div[2]/div[2]/label");
                   public static By submitButton = By.XPath("//button[@type='button']");
 
                   //Login Part Locators
@@ -46,7 +47,9 @@
 
                   //checkout locators
                   public static readonly By selectAllchkBox = By.XPath("//div[@id='listHeader_H']//label[contains(@class,'list-header-checkbox')]");
+                  //public static readonly By proceedToCheckoutButton = By.XPath("//button[contains(text(), 'PROCEED TO CHECKOUT (2)')]");
                   public static readonly By proceedToCheckoutButton = By.XPath("//button[contains(@class, 'automation-checkout-order-total-button-button')]");
+                  public static readonly By proceedToPayBtn = By.XPath("//div[text()='Proceed to Pay']");
 
                   // Delivery Information Form
                   public static readonly By fullNameInput = By.XPath("//input[@placeholder='Enter your first and last name']");

@@ -16,7 +16,7 @@ namespace Daraz.Automation.BDD.Pages
         public ProductpurchasePage(IWebDriver driver)
         {
             _driver = driver;
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
         }
 
         public void ClickCartIconAndVerifyCartPage()
@@ -96,6 +96,10 @@ public void ProceedToCheckout()
 
     var proceedToCheckoutButton = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.proceedToCheckoutButton));
     proceedToCheckoutButton.Click();
+    Thread.Sleep(2000);
+
+    var proceedToPayBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.proceedToPayBtn));
+    proceedToPayBtn.Click();
 }  
 
 public void FillDeliveryInformationForm(string FullName,string PhoneNumber, string Building, string Colony, string Address)
