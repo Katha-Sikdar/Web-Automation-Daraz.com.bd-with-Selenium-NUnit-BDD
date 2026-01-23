@@ -57,27 +57,12 @@ namespace Daraz.Automation.BDD.Pages
 
         public void loginAssertion()
         {
-            Thread.Sleep(2000); 
-
-            try 
-            {
-
-                string expectedName = "Katha Sikdar";
-                By profileXPath = By.XPath($"//*[contains(text(), '{expectedName}')]");
-                
-                var profileElement = _wait.Until(ExpectedConditions.ElementIsVisible(profileXPath));
-                
-                Assert.That(profileElement.Text, Does.Contain(expectedName), 
-                    $"Verification Failed: Expected name '{expectedName}' is not found in '{profileElement.Text}'");
-            }
-            catch (WebDriverTimeoutException)
-            {
-                if (_driver.PageSource.Contains("verification") || _driver.PageSource.Contains("captcha"))
-                {
-                    Assert.Fail("Navigation Blocked: Daraz triggered a Captcha/Slider verification.");
-                }
-                throw;
-            }
+            var profileElement = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.profileId));
+            string actualProfileText = profileElement.Text.Trim();
+            string expectedProfileText = "KATHA SIKDAR'S ACCOUNT";
+            Assert.That(actualProfileText, Is.EqualTo(expectedProfileText),
+                $"Verification Failed: expected '{expectedProfileText}' but found '{actualProfileText}'");
         }
+
     }
 }

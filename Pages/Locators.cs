@@ -29,6 +29,8 @@
                public static By profileId = By.XPath("//span[@id='myAccountTrigger']");
                //public static readonly By profileXPath = By.XPath($"//*[contains(text(), '{expectedName}')]"); 
                public static readonly By loginWindowAssertion = By.XPath("//button[@type='button' and text()='LOGIN']");
+               public static readonly By cartIcon = By.XPath("//div[@class='lzd-nav-cart']/a");
 
                      }
-                              }
+                             
+    }
