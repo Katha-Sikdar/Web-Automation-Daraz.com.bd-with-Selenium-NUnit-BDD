@@ -29,7 +29,20 @@
                public static By profileId = By.XPath("//span[@id='myAccountTrigger']");
                //public static readonly By profileXPath = By.XPath($"//*[contains(text(), '{expectedName}')]"); 
                public static readonly By loginWindowAssertion = By.XPath("//button[@type='button' and text()='LOGIN']");
-               public static readonly By cartIcon = By.XPath("//div[@class='lzd-nav-cart']/a");
+
+               //product purchase locators
+               public static readonly By cartIcon = By.XPath("//span[@class='cart-icon-daraz']");
+               public static readonly By clickCategoryDrpDwn = By.XPath("//span[text()='Categories']");
+               public static readonly By categoryOne = By.XPath("//span[text()='TV & Home Appliances']");
+               public static readonly By subCategoryOne = By.XPath("//span[text()='Kitchen Appliances']");
+               public static readonly By firstItem = By.XPath("//span[text()='Singer Deep Freezer']");
+               public static readonly By firstItemAddToCart = By.XPath("//a[@title='Singer Chest Freezer']");
+              // public static readonly By selectFirstItem = By.XPath("(//div[@data-qa-locator='general-products']//div[@data-qa-locator='product-item'])[1]");
+               public static readonly By categoryTwo = By.XPath("(//a[contains(@class,'card-categories-li')])[2]");
+               public static readonly By btnAddtoCart = By.XPath("//button//span[text()='Add to Cart']");
+      //   IWebElement CartMessage => driver.FindElement(By.XPath("//span[@class='cart-message-text']"));
+      //   IWebElement btnCross => driver.FindElement(By.XPath("//i[@class='next-icon next-icon-close next-icon-small']"));
+
 
                      }
                              

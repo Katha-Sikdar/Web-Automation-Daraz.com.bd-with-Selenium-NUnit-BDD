@@ -1,5 +1,54 @@
+// using System;
+// using OpenQA.Selenium;
+// using OpenQA.Selenium.Support.UI;
+// using SeleniumExtras.WaitHelpers;
+// using NUnit.Framework;
+
+// namespace Daraz.Automation.BDD.Pages
+// {
+//     public class ProductpurchasePage
+//     {
+//         private readonly IWebDriver _driver;
+//         private readonly WebDriverWait _wait;
+
+//         // HUMAN PATTERN: The constructor must initialize the driver and wait objects
+//         public ProductpurchasePage(IWebDriver driver)
+//         {
+//             _driver = driver;
+//             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
+//         }
+
+//         public void ClickCartIconAndVerifyCartPage()
+//         {
+//             // Wait for visibility first—more stable than just "clickable" on heavy sites
+//             var cartBtn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.cartIcon));
+//             cartBtn.Click();
+//              _wait.Until(d => d.Url.Contains("/cart"));
+
+//             // try 
+//             // {
+//             //     cartBtn.Click();
+//             // }
+//             // catch (ElementClickInterceptedException)
+//             // {
+//             //     // FALLBACK: If a popup blocks the icon, force the click via JavaScript
+//             //     ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", cartBtn);
+//             // }
+
+//             // Verify the URL changed—the most reliable proof of navigation
+//            // _wait.Until(d => d.Url.Contains("/cart"));
+
+//             // Verify a checkout button exists. Using a class-based XPath is more robust 
+//             // than text-based because it works regardless of language (English/Bengali).
+//             // var checkoutBtn = _wait.Until(ExpectedConditions.ElementIsVisible(
+//             //     By.XPath("//button[contains(@class, 'checkout') or contains(@class, 'checkout-btn')]")));
+
+//             // Assert.That(checkoutBtn.Displayed, Is.True, "Failed to load the Cart page content.");
+//         }
+//     }
+// }
+
 using System;
-using System.Threading; // Added for small human-like pauses
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -11,21 +60,48 @@ namespace Daraz.Automation.BDD.Pages
     {
         private readonly IWebDriver _driver;
         private readonly WebDriverWait _wait;
-public void ClickCartIconAndVerifyCartPage()
-{
-    // 1. Wait for the cart icon to be clickable and click it
-    var cartBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.cartIcon));
-    cartBtn.Click();
 
-    // 2. HUMAN TOUCH: Wait for the URL to contain 'cart' 
-    // This is more reliable than just checking if an element exists.
-    _wait.Until(d => d.Url.Contains("cart.daraz.com.bd") || d.Url.Contains("/cart"));
+        public ProductpurchasePage(IWebDriver driver)
+        {
+            _driver = driver;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+        }
 
-    // 3. Verify a "Cart Page" specific element (like the 'Proceed to Checkout' button)
-    // This proves we aren't just on a blank page or a login redirect.
-   // var cartHeader = _wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//h1[contains(text(), 'Shopping Cart')] | //button[contains(text(), 'PROCEED TO CHECKOUT')]")));
-    
-    //Assert.That(cartHeader.Displayed, Is.True, "Cart page failed to load properly.");
-}
+        public void ClickCartIconAndVerifyCartPage()
+        {
+            var cartBtn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.cartIcon));
+            //var cartBtn = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.cartIcon));
+             cartBtn.Click();
+             _wait.Until(d => d.Url.Contains("/cart"));
+            
+        }
+
+        public void ClickCategoryDropdownAndSelectCategory()
+        {
+            var categoryDrpDwn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.clickCategoryDrpDwn));
+            categoryDrpDwn.Click();
+
+            var category1 = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.categoryOne));
+            category1.Click();
+
+            var subCategory1 = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.subCategoryOne));
+            
+            var actions = new OpenQA.Selenium.Interactions.Actions(_driver);
+            actions.MoveToElement(subCategory1).Perform();
+
+            _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.firstItem));
+
+            var firstItem = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.firstItem));
+            firstItem.Click();
+
+            var firstItemAddToCart = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.firstItemAddToCart));
+            firstItemAddToCart.Click();
+
+            var addItemToCart = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.btnAddtoCart));
+            addItemToCart.Click();
+
+            //var addToCartBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.btnAddtoCart));
+            // addToCartBtn.Click();
+        }
     }
 }
