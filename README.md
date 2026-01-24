@@ -113,6 +113,8 @@ As an SQA engineer, you know that software moves fast. Manual testing alone ofte
 
 ## Video Recording - 
 
+[View Report Here](https://drive.google.com/file/d/1y_Kxm78CAzJgsv7v2J11puhZftHVTK3Z/view?usp=sharing)
+
 
 
 
