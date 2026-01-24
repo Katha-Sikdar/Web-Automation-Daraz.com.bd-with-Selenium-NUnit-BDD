@@ -53,6 +53,7 @@ As an SQA engineer, you know that software moves fast. Manual testing alone ofte
       - Then Verify the home page is displayed
       - Then Click on the Language Selection Dropdown and Select "Bangla" from the language options
       - Then Change the site language back from "Bangla" to "English" and verify that the language is updated.
+        
   - Authentication Flow -
       - Given I navigate to Daraz website
       - Then Verify the home page is displayed
@@ -60,12 +61,14 @@ As an SQA engineer, you know that software moves fast. Manual testing alone ofte
       - And Fill in the registration form with valid Phone Number
       - And Check the terms and conditions checkbox
       - Then Submit the registration form
-    - Authorization Flow
+        
+ - Authorization Flow
       -  Given I navigate to Daraz website
       -  Then Click on the "Login" button and verify that the Login window is opened.
       -  And Fill in the Login form with valid Email Address and Password
       -  Then Submit the Login form and verify successful login by checking
-    - Shopping, Cart Management and Checkout
+        
+ - Shopping, Cart Management and Checkout
       -  Given I navigate to Daraz website
       -  Then Click on the "Login" button and verify that the Login window is opened.
       -  And Fill in the Login form with valid Email Address and Password
@@ -75,6 +78,43 @@ As an SQA engineer, you know that software moves fast. Manual testing alone ofte
       -  And Click on the Category Dropdown "Second" and select a product and add to Cart
       -  Then Proceed to Checkout from the Cart page
       -  Then Fill in the Delivery Information form with valid details and Proceed To Pay
+  
+## Test Case Checklist 
+  - Verify Daraz homepage loads successfully
+  - Verify language can be changed from English to Bangla
+  - Verify language can be changed back from Bangla to English
+  - Verify user registration works with valid information
+  - Verify login works with registered credentials
+  - Verify user can select a product category
+  - Verify user can add a product to the cart
+  - Verify user can add products from multiple categories
+  - Verify cart contains selected products
+  - Verify user can proceed to checkout
+  - Verify user can proceed to buy/place order
+
+## Project Structure 
+```
+├── Data                # External test data (JSON/Excel)
+├── Features            # Gherkin .feature files (User Stories)
+├── Hooks               # Setup and Teardown logic
+├── Pages               # Page Objects (Locators and Methods)
+├── Reader              # Configuration and file readers
+├── ScreenShot          # Failure screenshots
+├── Steps               # Step Definition implementations
+├── allure-report       # Generated test execution reports
+├── Daraz.Automation.BDD.csproj
+└── specflow.json       # SpecFlow configuration
+
+```
+
+## Screenshot  - 
+<img width="1470" height="956" alt="Screenshot 2026-01-24 at 18 02 31" src="https://github.com/user-attachments/assets/dfb95738-4fa6-4b6a-a4f0-5d75f81a02f3" />
+<img width="1470" height="956" alt="Screenshot 2026-01-24 at 18 02 17" src="https://github.com/user-attachments/assets/4bccc33f-2feb-45b3-bb85-c4928ba1d4c0" />
+
+## Video Recording - 
+
+
+
 
 
 
