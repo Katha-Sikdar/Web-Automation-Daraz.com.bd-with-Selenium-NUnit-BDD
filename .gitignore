@@ -52,3 +52,25 @@ _ReSharper*/
 # Ignore build outputs from tools
 project.lock.json
 project.fragment.lock.json
+
+# ==========================================
+# Automation Specific Ignores
+# ==========================================
+
+# Allure report data and generated HTML
+allure-results/
+allure-report/
+
+# Local test execution artifacts
+ScreenShot/
+TestResults/
+*.log
+
+# WebDriver binaries
+chromedriver.exe
+geckodriver.exe
+msedgedriver.exe
+
+# Local environment/secrets
+.env
+appsettings.json

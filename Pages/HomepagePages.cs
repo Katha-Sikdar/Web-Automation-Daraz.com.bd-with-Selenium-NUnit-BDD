@@ -50,7 +50,7 @@
                     string actualPlaceholder = searchBox.GetAttribute("placeholder");
 
                     Assert.That(actualPlaceholder, Is.EqualTo(expectedPlaceholder), 
-                        $"The search bar placeholder did not update correctly for {langCode}.");
+                        $"search bar placeholder did not update correctly for {langCode}.");
                 }
                         }
                     }
