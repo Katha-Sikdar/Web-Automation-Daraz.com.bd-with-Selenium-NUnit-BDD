@@ -45,8 +45,9 @@
                     public void SubmitRegistrationForm()
                     {       
                         _registrationPage.ClickSubmit();
-                        Thread.Sleep(3000);
-                        _registrationPage.HandleUnusualTrafficSlider();
+                        //Thread.Sleep(3000);
+                        Hook.driver!.Navigate().Refresh();
+                       // _registrationPage.HandleUnusualTrafficSlider();
                     }
 
                             }

@@ -1,83 +1,75 @@
-    using System;
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Support.UI;
-    using SeleniumExtras.WaitHelpers;
-    using NUnit.Framework;
-using Daraz.Automation.BDD.Hooks;
+        using System;
+        using OpenQA.Selenium;
+        using OpenQA.Selenium.Support.UI;
+        using SeleniumExtras.WaitHelpers;
+        using NUnit.Framework;
+    using Daraz.Automation.BDD.Hooks;
 
-namespace Daraz.Automation.BDD.Pages
-    {
-        public class RegistrationPage
+    namespace Daraz.Automation.BDD.Pages
         {
-            private readonly IWebDriver _driver;
-            private readonly WebDriverWait _wait;
-
-            public RegistrationPage(IWebDriver driver)
+            public class RegistrationPage
             {
-                _driver = driver;
-                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
-            }
+                private readonly IWebDriver _driver;
+                private readonly WebDriverWait _wait;
 
-            public void ClickSignUp()
-            {
-                var btn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.signUpButton));
-                btn.Click();
-            }
-
-            public void VerifySignUpWindowOpened()
-            {
-                var registrationForm = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.modalCheckBox));
-                Assert.That(registrationForm.Displayed, Is.True, "The Registration form did not load properly.");
-            }
-
-            public void EnterMobileNumber(string mobile)
-            {
-                var phoneInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.mobileInput));
-                phoneInput.Click();
-                phoneInput.Clear();
-                phoneInput.SendKeys(mobile);
-                Thread.Sleep(1000);
-                Hook.driver!.Navigate().Refresh();
-            }
-
-            public void CheckTermsAndConditions()
-            {
-                var termsCheckbox = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.termsAndConditionsCheckbox));
-                // termsCheckbox.Click();
-                Thread.Sleep(1000);
-                if (!termsCheckbox.Selected)
+                public RegistrationPage(IWebDriver driver)
                 {
-                    termsCheckbox.Click();
+                    _driver = driver;
+                    _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
                 }
-            }
 
-            public void ClickSubmit()
-            {
-                var submitBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.submitButton));
-                submitBtn.Click();
+                public void ClickSignUp()
+                {
+                    var btn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.signUpButton));
+                    btn.Click();
+                }
+
+                public void VerifySignUpWindowOpened()
+                {
+                    var registrationForm = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.modalCheckBox));
+                    Assert.That(registrationForm.Displayed, Is.True, "The Registration form did not load properly.");
+                }
+
+                public void EnterMobileNumber(string mobile)
+                {
+                    var phoneInput = _wait.Until(ExpectedConditions.ElementIsVisible(DarazLocators.mobileInput));
+                    phoneInput.Click();
+                    phoneInput.Clear();
+                    phoneInput.SendKeys(mobile);
+                    Thread.Sleep(1000);
                 
-                _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(DarazLocators.submitButton));
-            }
+                }
 
-            public void HandleUnusualTrafficSlider()
-            {
-                try
+                public void CheckTermsAndConditions()
                 {
-                    
-                    var slider = _wait.Until(ExpectedConditions.ElementIsVisible(By.Id("nc_1_n1z")));
-                    
-                    if (slider.Displayed)
-                    {
-                        Console.WriteLine("CAPTCHA Detected! Please slide the bar manually.");
-                        
-                        var longWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-                        longWait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.Id("nc_1_n1z")));
-                    }
+                    var termsCheckbox = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.modalCheckBox));
+                    termsCheckbox.Click();
+                    Thread.Sleep(1000);
                 }
-                catch (WebDriverTimeoutException)
-                {
-                    Console.WriteLine("No slider detected, continuing test");
-                }
-            }
+
+                // public void ClickSubmit()
+                // {
+                //     var submitBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.submitButton));
+                //     submitBtn.Click();
+                    
+                //     _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(DarazLocators.submitButton));
+                    
+                // }
+
+                public void ClickSubmit()
+    {
+        var submitBtn = _wait.Until(ExpectedConditions.ElementToBeClickable(DarazLocators.submitButton));
+        submitBtn.Click();
+        try 
+        {
+            var errorToast = new WebDriverWait(Hook.driver!, TimeSpan.FromSeconds(2))
+                .Until(ExpectedConditions.ElementIsVisible(DarazLocators.invalidPhoneNumberError));
+            throw new Exception("Stopped Test: phone number is invalid!");
+        }
+        catch (WebDriverTimeoutException)
+        {
+            _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(DarazLocators.submitButton));
         }
     }
+            }
+        }

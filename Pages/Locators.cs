@@ -15,12 +15,12 @@
 
                   //SignUp Part Locators
                   public static By signUpButton = By.XPath("//a[text()='Sign Up']");
-                  public static By modalCheckBox = By.XPath("//label[contains(@class,'iweb-checkbox-lazada')]");
-
+                 
                   public static By mobileInput = By.XPath("//input[@placeholder='Please enter your phone number']");
-                  //public static By termsAndConditionsCheckbox = By.XPath("//label[contains(@class, 'iweb-checkbox-checked') and contains(@class, 'index_module_acceptCheckbox')]");
-                  public static By termsAndConditionsCheckbox = By.XPath("/html/body/div[7]/div/div/div/div/div/div/div/div[2]/div/div[2]/div[2]/label");
+                   public static By modalCheckBox = By.XPath("//label[contains(@class, 'index_module_acceptCheckbox')]");
+                 
                   public static By submitButton = By.XPath("//button[@type='button']");
+                  public static By invalidPhoneNumberError = By.XPath("//div[text()='Please enter a valid phone number.']");
 
                   //Login Part Locators
                   public static By loginButton = By.XPath("//a[text()='Login']");
