@@ -111,6 +111,9 @@ As an SQA engineer, you know that software moves fast. Manual testing alone ofte
 <img width="1470" height="956" alt="Screenshot 2026-01-24 at 18 02 31" src="https://github.com/user-attachments/assets/dfb95738-4fa6-4b6a-a4f0-5d75f81a02f3" />
 <img width="1470" height="956" alt="Screenshot 2026-01-24 at 18 02 17" src="https://github.com/user-attachments/assets/4bccc33f-2feb-45b3-bb85-c4928ba1d4c0" />
 
+## Challenges - 
+  - During the automation of the Registration flow, a discrepancy was identified where the UI accepts mobile numbers manually but triggers an "Invalid Mobile Number" toast message when handled via Selenium's SendKeys(). This behavior, likely caused by anti-bot detection or rapid input validation, results in a 75% test pass rate rather than 100%.
+
 ## Video Recording - 
 
 [View Report Here](https://drive.google.com/file/d/1y_Kxm78CAzJgsv7v2J11puhZftHVTK3Z/view?usp=sharing)
