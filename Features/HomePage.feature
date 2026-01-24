@@ -1,7 +1,7 @@
           Feature: Daraz HomePage Workflow
 
             @homepage
-            Scenario: Complete purchase flow from language change to checkout
+            Scenario: HomePage - Workflow from language change to checkout
               Given I navigate to Daraz website
               Then Verify the home page is displayed
               Then Click on the Language Selection Dropdown and Select "Bangla" from the language options
